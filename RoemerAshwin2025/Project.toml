@@ -1,0 +1,12 @@
+name = "PeteJulian"
+uuid = "007eb5da-fc11-40fc-a28d-d5ac673eeb4f"
+authors = ["raphael-roemer <raphael-roemer@t-online.de>"]
+version = "0.1.0"
+
+[deps]
+Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
+DynamicalSystems = "61744808-ddfa-5f27-97ff-6e42cc95d634"
+ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
+LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
+PeriodicOrbits = "41be5fce-5647-450b-ae37-a6739b881a1c"
+ProgressMeter = "92933f4c-e287-5a05-a399-4b506db050ca"

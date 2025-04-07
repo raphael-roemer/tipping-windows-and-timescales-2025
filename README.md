@@ -1,6 +1,9 @@
 # tipping-windows-and-timescales-2025
 Code to produce figures in paper of Römer and Ashwin
 
-The Julia Environment is given by RoemerAshwin2025. It needs to be activated first.
+The Julia Environment "RoemerAshwin2025" needs to be instantiated first to get the right package versions. In "UPOsPaper.jl", it then gets activated.
 
-Then, make sure to run UPOsPaper.jl first as it is needed for the other two programs.
+Make sure to run "UPOsPaper.jl" before running the other two programs.
+
+
+

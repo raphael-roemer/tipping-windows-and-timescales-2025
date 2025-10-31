@@ -351,11 +351,38 @@ function DWthresh_cross_a_gamma(PO_nr;
     return a_gamma
 end
 a_gamma=DWthresh_cross_a_gamma(4,γs=[0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1])
-plot(a_gamma[1:end,1],a_gamma[1:end,2],xlabel=L"\gamma",ylabel=L"a",label=false,xguidefontsize=20,yguidefontsize=20,xtickfontsize=12,ytickfontsize=12,titlefont=(20,"Computer Modern"),guidefontsize=20);
-plot!(a_gamma[1:end,1],(a_gamma[1:end,1].^2).*21,xlabel=L"\gamma",ylabel=L"a",label=false)
+x = a_gamma[:, 1]
+y = a_gamma[:, 2]
 
-plot(a_gamma[1:end,1],a_gamma[1:end,2],xlabel=L"\gamma",ylabel=L"a",yscale=:log10,xscale=:log10,label=false,xguidefontsize=20,yguidefontsize=20,xtickfontsize=12,ytickfontsize=12,titlefont=(20,"Computer Modern"));
-plot!(a_gamma[1:end,1],(a_gamma[1:end,1].^2).*21,xlabel=L"\gamma",ylabel=L"a",yscale=:log10,xscale=:log10,label=false)
+# ---- Least-squares fit ----
+# Suppose the model is roughly a ~ c * γ^2
+model(γ, p) = p[1] .* γ.^2
+p0 = [1.0]                     # initial guess
+fit = curve_fit(model, x, y, p0)
+p_fit = coef(fit)
+y_fit = model(x, p_fit)
+
+# ---- Estimate errors ----
+residuals = y .- y_fit
+σ = std(residuals)              # standard deviation of residuals as error estimate
+yerr = fill(σ, length(y))       # constant error bars (simple estimate)
+
+# ---- Plot ----
+default(titlefont = (20, "Computer Modern"),
+        guidefontsize = 20,
+        xtickfontsize = 12,
+        ytickfontsize = 12)
+
+plot(x, y, seriestype = :scatter,
+     yscale = :log10, xscale = :log10,
+     xlabel = L"\gamma", ylabel = L"a",
+     color = :blue, label = "data")
+
+plot!(x, model(x, p_fit),
+      color = :orange, lw = 2, label = "least squares fit")
+
+println("Fitted parameter c = $(round(p_fit[1], sigdigits=4)) ± $(round(σ, sigdigits=3))")
+
 
 
 
